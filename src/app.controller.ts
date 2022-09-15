@@ -8,8 +8,8 @@ import {
   UseInterceptors,
 } from '@nestjs/common';
 import { AppService } from './app.service';
-import { ContentTypeGuard } from './guards/content-type.guard';
-import { ResizeImageInterceptor } from './interceptors/image.interceptor';
+import { ContentTypeGuard } from './content-type.guard';
+import { ResizeImageInterceptor } from './image.interceptor';
 import { imageSizeMapping } from './utils';
 
 @Controller()

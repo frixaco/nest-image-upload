@@ -2,7 +2,7 @@ import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { RawBodyMiddleware } from './middleware/raw-body.middleware';
+import { RawBodyMiddleware } from './raw-body.middleware';
 
 @Module({
   imports: [ConfigModule.forRoot()],
