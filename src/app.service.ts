@@ -20,7 +20,7 @@ export class AppService {
     size: keyof typeof imageSizeMapping,
   ): Promise<string> {
     const [fileName, extension] = parseFileName(image);
-    const Key = fileName + '_' + size + '.' + extension;
+    const Key = fileName + '_' + size + extension;
     const Bucket = process.env.AWS_S3_BUCKET;
     const passThroughStream = new stream.PassThrough();
 

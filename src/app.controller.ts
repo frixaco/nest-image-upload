@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Headers,
   Param,
   Post,
   UseGuards,
@@ -16,10 +17,10 @@ export class AppController {
   constructor(private readonly appService: AppService) {}
 
   @UseGuards(ContentTypeGuard)
-  @Post(':size/:image')
+  @Post(':image')
   @UseInterceptors(ResizeImageInterceptor)
   uploadimage(
-    @Param('size') size: keyof typeof imageSizeMapping,
+    @Headers('size') size: keyof typeof imageSizeMapping,
     @Param('image') image: string,
     @Body() body: Buffer,
   ) {
