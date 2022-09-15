@@ -1,6 +1,9 @@
-import { S3Client } from '@aws-sdk/client-s3';
+import {
+  CompleteMultipartUploadCommandOutput,
+  S3Client,
+} from '@aws-sdk/client-s3';
 import { Upload } from '@aws-sdk/lib-storage';
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import * as stream from 'stream';
 import { imageSizeMapping, parseFileName } from './utils';
 
@@ -18,7 +21,7 @@ export class AppService {
     image: string,
     file: Buffer,
     size: keyof typeof imageSizeMapping,
-  ): Promise<string> {
+  ): Promise<{ filename: string; url: string }> {
     const [fileName, extension] = parseFileName(image);
     const Key = fileName + '_' + size + extension;
     const Bucket = process.env.AWS_S3_BUCKET;
@@ -39,11 +42,18 @@ export class AppService {
       });
 
       stream.Readable.from(file).pipe(passThroughStream);
-      await parallelUploads3.done();
-    } catch (e) {
-      console.log(e);
-    }
+      const result =
+        (await parallelUploads3.done()) as CompleteMultipartUploadCommandOutput;
 
-    return image;
+      return {
+        filename: result.Key,
+        url: result.Location,
+      };
+    } catch (e) {
+      throw new HttpException(
+        'Failed to upload image',
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
   }
 }
