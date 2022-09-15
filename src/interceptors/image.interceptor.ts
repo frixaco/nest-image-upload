@@ -9,7 +9,7 @@ import {
 import { Request } from 'express';
 import { Observable } from 'rxjs';
 import * as sharp from 'sharp';
-import { ImageSizeMapping } from 'src/utils';
+import { imageSizeMapping } from 'src/utils';
 
 @Injectable()
 export class ResizeImageInterceptor implements NestInterceptor {
@@ -20,12 +20,12 @@ export class ResizeImageInterceptor implements NestInterceptor {
     const request: Request = context.switchToHttp().getRequest();
     const [, imageSize] = request.originalUrl.split('/') as [
       '',
-      keyof typeof ImageSizeMapping,
+      keyof typeof imageSizeMapping,
       string,
     ];
 
     const resizeImage = sharp(request.body as Buffer).resize(
-      ImageSizeMapping[imageSize],
+      imageSizeMapping[imageSize],
     );
 
     const imageResizer: Record<string, () => Promise<Buffer>> = {

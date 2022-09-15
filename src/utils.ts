@@ -5,7 +5,7 @@ export function parseFileName(fileName: string): [string, string] {
   return [file.name, file.ext];
 }
 
-export const ImageSizeMapping = {
+export const imageSizeMapping = {
   large: 2048,
   medium: 1024,
   thumb: 300,
