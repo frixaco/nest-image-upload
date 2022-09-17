@@ -17,14 +17,13 @@ export class AppController {
   constructor(private readonly appService: AppService) {}
 
   @UseGuards(ContentTypeGuard)
-  @Post(':image')
-  // @UseInterceptors(ResizeImageInterceptor)
-  async uploadimage(
-    @Headers('size') size: ImageSize,
-    @Param('image') image: string,
+  @Post(':filename')
+  async uploadImage(
     @Req() request: Request,
     @Res() response: Response,
+    @Param('filename') filename: string,
+    @Headers('size') size: ImageSize,
   ): Promise<{ filename: string; url: string }> {
-    return this.appService.uploadimage(request, response, image, size);
+    return this.appService.uploadImage(request, response, filename, size);
   }
 }

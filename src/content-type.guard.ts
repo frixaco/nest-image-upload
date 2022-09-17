@@ -15,9 +15,10 @@ export class ContentTypeGuard implements CanActivate {
     context: ExecutionContext,
   ): boolean | Promise<boolean> | Observable<boolean> {
     const request = context.switchToHttp().getRequest<Request>();
-    const contentType = request.headers['content-type'];
 
-    const mimeType = mimeTypes.lookup(request.path).toString();
+    const contentType = request.headers['content-type'];
+    const filename = request.params['filename'];
+    const mimeType = mimeTypes.lookup(filename).toString();
 
     if (
       !contentType ||

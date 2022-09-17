@@ -9,8 +9,3 @@ import { AppService } from './app.service';
   providers: [AppService],
 })
 export class AppModule {}
-// export class AppModule implements NestModule {
-//   public configure(consumer: MiddlewareConsumer): void {
-//     consumer.apply(RawBodyMiddleware).forRoutes(AppController);
-//   }
-// }

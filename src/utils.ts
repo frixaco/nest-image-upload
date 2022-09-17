@@ -9,6 +9,6 @@ export const imageSizeMapping = {
   large: 2048,
   medium: 1024,
   thumb: 300,
-};
+} as const;
 
 export type ImageSize = keyof typeof imageSizeMapping;
