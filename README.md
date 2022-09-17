@@ -6,6 +6,10 @@
 2. Populate `.env` (use [`.env.example`](.env.example) as example)
 3. Run `npm run start:dev` to launch server in watch mode
 
+### Memory usage
+
+Running `npm run start:dev` (with `NODE_OPTIONS=--max-old-space-size=256`) and running `NODE_OPTIONS=--max-old-space-size=64 node dist/main` keeps RAM usage under 200MB and 70MB, respectively, regardless of image size (tested with 252MB, 192MB, 11KB images)
+
 ### Usage
 
 - Request should be `POST` request

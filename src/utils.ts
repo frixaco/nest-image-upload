@@ -1,7 +1,7 @@
 import * as path from 'path';
 
-export function parseFileName(fileName: string): [string, string] {
-  const file = path.parse(fileName);
+export function parseFilename(filename: string): [string, string] {
+  const file = path.parse(filename);
   return [file.name, file.ext];
 }
 
@@ -10,3 +10,5 @@ export const imageSizeMapping = {
   medium: 1024,
   thumb: 300,
 };
+
+export type ImageSize = keyof typeof imageSizeMapping;

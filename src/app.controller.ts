@@ -1,16 +1,16 @@
 import {
-  Body,
   Controller,
   Headers,
   Param,
   Post,
+  Req,
+  Res,
   UseGuards,
-  UseInterceptors,
 } from '@nestjs/common';
+import { Request, Response } from 'express';
 import { AppService } from './app.service';
 import { ContentTypeGuard } from './content-type.guard';
-import { ResizeImageInterceptor } from './image.interceptor';
-import { imageSizeMapping } from './utils';
+import { ImageSize } from './utils';
 
 @Controller()
 export class AppController {
@@ -18,12 +18,13 @@ export class AppController {
 
   @UseGuards(ContentTypeGuard)
   @Post(':image')
-  @UseInterceptors(ResizeImageInterceptor)
-  uploadimage(
-    @Headers('size') size: keyof typeof imageSizeMapping,
+  // @UseInterceptors(ResizeImageInterceptor)
+  async uploadimage(
+    @Headers('size') size: ImageSize,
     @Param('image') image: string,
-    @Body() body: Buffer,
-  ) {
-    return this.appService.uploadimage(image, body, size);
+    @Req() request: Request,
+    @Res() response: Response,
+  ): Promise<{ filename: string; url: string }> {
+    return this.appService.uploadimage(request, response, image, size);
   }
 }

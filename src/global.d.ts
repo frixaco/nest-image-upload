@@ -5,7 +5,7 @@ declare global {
       AWS_S3_BUCKET: string;
       AWS_SECRET_ACCESS_KEY: string;
       AWS_REGION: string;
-      MAX_IMAGE_SIZE: string;
+      MAX_IMAGE_SIZE_IN_MB: string;
     }
   }
 }
